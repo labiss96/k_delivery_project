@@ -8,6 +8,14 @@
         <h1>Login page</h1>
         <form class="contact-form" action="/login" method="post">
             <div>
+                <select name="select_usermode">
+                    <option value="">Select usermode</option>
+                    <option value="customer">Customer</option>
+                    <option value="seller">Seller</option>
+                    <option value="admin">Admin</option>
+                </select>
+            </div>
+            <div>
                 <label for="username">username</label>
                 <input type="text" id="username" name="username" value="">
             </div>
@@ -17,8 +25,15 @@
             <div>
                 <button type="submit">Submit</button>
             </div>
+            <br>
+            <div>
+                <a href="/">back</a>
+            </div>
         </form>
-        <a href="/register">register</a>
+        <br>
+        <a href="/signup_admin">admin signup</a> <br>
+        <a href="/signup_seller">seller signup</a> <br>
+        <!-- <a href="/register">register</a> -->
     </div>
 </body>
 </html>
