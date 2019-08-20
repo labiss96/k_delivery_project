@@ -7,7 +7,7 @@
     <% include ../partials/nav %>
 
     <div class="container">
-        <h1>this is main page</h1>
+        <h1>Main page</h1>
         <br>
         <%= data %> <br>
         현재 유저 : <%= user %>
@@ -24,6 +24,7 @@
         <hr>
         <% for(let shop of shop_list) { %>
             매장이름 : <a href="/restaurant/detail/<%=shop.id%>"><%= shop.name %></a><br>
+            범주 : <%= shop.category %> <br>
             주소 : <%= shop.address %> <br>
             전화번호 : <%= shop.phone_num %> <br>
             소개 : <%= shop.introduction %> <br>
