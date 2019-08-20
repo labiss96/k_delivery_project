@@ -16,7 +16,9 @@
             email : <%= user.email %>
             <br> <br>
         <% } %> -->
+        <% if (session.usermode == 'seller') { %>
         <a href="/register_shop">가게등록</a>
+        <% } %>
         <br><br>
         <h2>매장 리스트</h2>
         <hr>
