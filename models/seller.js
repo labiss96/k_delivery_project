@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-    return sequelize.define('Seller', {
+    var seller = sequelize.define('Seller', {
         username: {
             type : DataTypes.STRING(30),
             allowNull : false,
@@ -17,4 +17,9 @@ module.exports = (sequelize, DataTypes) => {
     },{
         timestamps: false,
     });
-}
+    seller.associate = function (models) {
+        seller.hasMany(models.Restaurants);
+    };
+
+    return seller;
+};
