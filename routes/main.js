@@ -5,7 +5,6 @@ var {Seller} = require('../models');
 var {Restaurants} = require('../models');
 var {Customer} = require('../models');
 
-
 // Main
 router.get("/", async function(req, res){
     var shop_list = await Restaurants.findAll();
@@ -79,12 +78,6 @@ router.post("/signup_customer", function(req,res){
         password : pw,
         address : address
     });
-    // .then(function(admin) {
-    //     console.log('success');
-    // })
-    // .catch(function(err) {
-    //     console.log(err);
-    // });
     res.redirect('/');
 });
 
@@ -144,31 +137,6 @@ router.post("/logout",  function(req,res){
    req.session.destroy(); //세션 제거
    res.clearCookie('sid'); // 세션을 설정한 미들웨어에서 추가된 쿠키정보 삭제.
    res.redirect('/');
-});
-
-//가게 등록
-router.get("/register_shop", function(req, res){
-    res.render("./main/register_shop");
-});
-router.post("/register_shop", function(req,res){
-    var register_data = req.body;
-    var seller_id = req.session.username
-
-    try{
-        Restaurants.create({
-            register_id : register_data.register_id,
-            name : register_data.name,
-            address : register_data.adderss,
-            phone_num : register_data.phone_num,
-            introduction : register_data.introduction,
-            latitude : "111",
-            longitude : "222",
-            seller_id : seller_id
-        });
-    } catch(error) {
-        console.log(error);
-    }
-    res.redirect('/');
 });
 
 module.exports = router;
