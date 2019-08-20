@@ -30,6 +30,10 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.DOUBLE,
             allowNull : false,
         },
+        category : {
+            type: DataTypes.ENUM('koreanFood','chinaFood','japenFood','snack','chicken','pizza','midnightSnack','fastFood'),
+            allowNull : false,
+        },
         seller_id : {
             type : DataTypes.STRING(30),
             allowNull : false,

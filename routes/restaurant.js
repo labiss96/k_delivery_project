@@ -14,6 +14,7 @@ router.post("/register_restaurants", function(req,res){
         Restaurants.create({
             register_id : register_data.register_id,
             name : register_data.name,
+            category : register_data.category,
             address : register_data.adderss,
             phone_num : register_data.phone_num,
             introduction : register_data.introduction,
