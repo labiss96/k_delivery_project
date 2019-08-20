@@ -3,6 +3,7 @@ var router = express.Router();
 var {Admin} = require('../models');
 var {Seller} = require('../models');
 var {Restaurants} = require('../models');
+var {Customer} = require('../models');
 
 // Main
 router.get("/", async function(req, res){
@@ -58,6 +59,25 @@ router.post("/signup_seller", function(req,res){
     } catch(error) {
         console.log(error);
     }
+    res.redirect('/');
+});
+
+router.get("/signup_customer", function(req, res){
+    res.render("./main/signup_customer");
+});
+
+router.post("/signup_customer", function(req,res){
+    var username = req.body.username;
+    var phone_num = req.body.phone_num;
+    var pw = req.body.pw;
+    var address = req.body.address;
+
+    Customer.create({
+        username : username,
+        phone_num : phone_num,
+        password : pw,
+        address : address
+    });
     res.redirect('/');
 });
 
@@ -118,7 +138,5 @@ router.post("/logout",  function(req,res){
    res.clearCookie('sid'); // 세션을 설정한 미들웨어에서 추가된 쿠키정보 삭제.
    res.redirect('/');
 });
-
-
 
 module.exports = router;
