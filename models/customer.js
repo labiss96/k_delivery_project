@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
     return sequelize.define('Customer', {
-        customer_id: {
+        username: {
             type : DataTypes.STRING(30),
             allowNull : false,
             unique : true,
@@ -19,11 +19,11 @@ module.exports = (sequelize, DataTypes) => {
         },
         latitude : {
             type : DataTypes.DOUBLE,
-            allowNull : false,
+            allowNull : true,
         },
         longitude : {
             type : DataTypes.DOUBLE,
-            allowNull : false,
+            allowNull : true,
         }
     },{
         timestamps: false,
