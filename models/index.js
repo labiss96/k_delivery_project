@@ -12,6 +12,7 @@ db.Sequelize = Sequelize;
 
 db.Admin = require('./admin')(sequelize, Sequelize);
 db.Seller = require('./seller')(sequelize, Sequelize);
+db.Customer = require('./customer')(sequelize, Sequelize);
 
 module.exports = db;
 

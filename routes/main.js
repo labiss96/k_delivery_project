@@ -2,6 +2,7 @@ var express = require("express");
 var router = express.Router();
 var {Admin} = require('../models');
 var {Seller} = require('../models');
+var {Customer} = require('../models');
 
 
 // Main
@@ -57,6 +58,31 @@ router.post("/signup_seller", function(req,res){
         username : username,
         phone_num : phone_num,
         password : pw,
+    });
+    // .then(function(admin) {
+    //     console.log('success');
+    // })
+    // .catch(function(err) {
+    //     console.log(err);
+    // });
+    res.redirect('/');
+});
+
+router.get("/signup_customer", function(req, res){
+    res.render("./main/signup_customer");
+});
+
+router.post("/signup_customer", function(req,res){
+    var username = req.body.username;
+    var phone_num = req.body.phone_num;
+    var pw = req.body.pw;
+    var address = req.body.address;
+
+    Customer.create({
+        username : username,
+        phone_num : phone_num,
+        password : pw,
+        address : address
     });
     // .then(function(admin) {
     //     console.log('success');
