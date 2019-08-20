@@ -1,0 +1,10 @@
+{
+    "development": {
+        "username": "root",
+        "password": "coke9080!",
+        "database": "delivery_db",
+        "host": "localhost",
+        "dialect": "mysql",
+        "operatorAliases": false
+    }
+}
