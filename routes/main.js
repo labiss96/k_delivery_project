@@ -4,7 +4,6 @@ var {Admin} = require('../models');
 var {Seller} = require('../models');
 var {Restaurants} = require('../models');
 
-
 // Main
 router.get("/", async function(req, res){
     var shop_list = await Restaurants.findAll();
@@ -120,29 +119,6 @@ router.post("/logout",  function(req,res){
    res.redirect('/');
 });
 
-//가게 등록
-router.get("/register_shop", function(req, res){
-    res.render("./main/register_shop");
-});
-router.post("/register_shop", function(req,res){
-    var register_data = req.body;
-    var seller_id = req.session.username
 
-    try{
-        Restaurants.create({
-            register_id : register_data.register_id,
-            name : register_data.name,
-            address : register_data.adderss,
-            phone_num : register_data.phone_num,
-            introduction : register_data.introduction,
-            latitude : "111",
-            longitude : "222",
-            seller_id : seller_id
-        });
-    } catch(error) {
-        console.log(error);
-    }
-    res.redirect('/');
-});
 
 module.exports = router;
