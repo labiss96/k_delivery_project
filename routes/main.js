@@ -2,17 +2,17 @@ var express = require("express");
 var router = express.Router();
 var {Admin} = require('../models');
 var {Seller} = require('../models');
+var {Restaurants} = require('../models');
 
 
 // Main
-router.get("/", function(req, res){
+router.get("/", async function(req, res){
+    var shop_list = await Restaurants.findAll();
+    console.log(shop_list[0].name);
     if(req.session.logined) {
-        // Admin.findAll().then((admin) => {
-        //     res.render("./main/main", {data : admin});
-        // });
-        res.render("./main/main", {data : "로그인 됨.", user: req.session.username});
+        res.render("./main/main", {data : "로그인 됨.", shop_list : shop_list, user: req.session.username});
     } else {
-        res.render("./main/main", {data : "로그인 안됨.", user: "none"});
+        res.render("./main/main", {data : "로그인 안됨.", shop_list : shop_list, user: "none"});
     }
     
 });
@@ -58,12 +58,6 @@ router.post("/signup_seller", function(req,res){
         phone_num : phone_num,
         password : pw,
     });
-    // .then(function(admin) {
-    //     console.log('success');
-    // })
-    // .catch(function(err) {
-    //     console.log(err);
-    // });
     res.redirect('/');
 });
 
@@ -122,6 +116,25 @@ router.post("/logout",  function(req,res){
    res.redirect('/');
 });
 
+//가게 등록
+router.get("/register_shop", function(req, res){
+    res.render("./main/register_shop");
+});
+router.post("/register_shop", function(req,res){
+    var register_data = req.body;
+    var seller_id = req.session.username
 
+    Restaurants.create({
+        register_id : register_data.register_id,
+        name : register_data.name,
+        address : register_data.adderss,
+        phone_num : register_data.phone_num,
+        introduction : register_data.introduction,
+        latitude : "111",
+        longitude : "222",
+        seller_id : seller_id
+    });
+    res.redirect('/');
+});
 
 module.exports = router;

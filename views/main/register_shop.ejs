@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <% include ../partials/head %>
+</head>
+<body>
+    <div class="container">
+        <h1>가게 등록페이지</h1>
+        <form class="contact-form" action="/register_shop" method="post">
+            <div>
+                <label for="register_id">사업자등록번호</label>
+                <input type="text" id="register_id" name="register_id" value="">
+            </div>
+            <div>
+                <label for="name">매장이름</label>
+                <input type="text" id="name" name="name" value="">
+            </div>
+            <div>
+                <label for="adderss">주소</label>
+                <input type="text" id="adderss" name="adderss" value="">
+            </div>
+            <div>
+                <label for="phone_num">전화번호</label>
+                <input type="text" id="phone_num" name="phone_num" value="">
+            </div>
+            <div>
+                <label for="introduction">소개글</label>
+                <input type="text" id="introduction" name="introduction" value="">
+            </div>
+            <div>
+                <button type="submit">Submit</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
