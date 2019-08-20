@@ -16,6 +16,21 @@
             email : <%= user.email %>
             <br> <br>
         <% } %> -->
+        <% if (session.usermode == 'seller') { %>
+        <a href="/register_shop">가게등록</a>
+        <% } %>
+        <br><br>
+        <h2>매장 리스트</h2>
+        <hr>
+        <% for(let shop of shop_list) { %>
+            매장이름 : <%= shop.name %> <br>
+            주소 : <%= shop.address %> <br>
+            전화번호 : <%= shop.phone_num %> <br>
+            소개 : <%= shop.introduction %> <br>
+            점주 : <%= shop.seller_id %>    
+            <hr>
+        <% } %>
+
     </div>
 </body>
 </html>
