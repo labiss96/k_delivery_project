@@ -8,13 +8,12 @@ var {Restaurants} = require('../models');
 // Main
 router.get("/", async function(req, res){
     var shop_list = await Restaurants.findAll();
-    console.log(shop_list[0].name);
+    let session = req.session;
     if(req.session.logined) {
-        res.render("./main/main", {data : "로그인 됨.", shop_list : shop_list, user: req.session.username});
+        res.render("./main/main", {session : session, data : "로그인 됨.", shop_list : shop_list, user : req.session.username});
     } else {
-        res.render("./main/main", {data : "로그인 안됨.", shop_list : shop_list, user: "none"});
+        res.render("./main/main", {session : session, data : "로그인 안됨.", shop_list : shop_list, user : "none"});
     }
-    
 });
 
 router.get("/login", function(req, res){
@@ -30,17 +29,15 @@ router.post("/signup_admin", function(req,res){
     var email = req.body.email;
     var pw = req.body.pw;
 
-    Admin.create({
-        username : username,
-        email : email,
-        password : pw,
-    });
-    // .then(function(admin) {
-    //     console.log('success');
-    // })
-    // .catch(function(err) {
-    //     console.log(err);
-    // });
+    try{
+        Admin.create({
+            username : username,
+            email : email,
+            password : pw,
+        });
+    } catch(error) {
+        console.log(error);
+    }
     res.redirect('/');
 });
 
@@ -53,45 +50,51 @@ router.post("/signup_seller", function(req,res){
     var phone_num = req.body.phone_num;
     var pw = req.body.pw;
 
-    Seller.create({
-        username : username,
-        phone_num : phone_num,
-        password : pw,
-    });
+    try {
+        Seller.create({
+            username : username,
+            phone_num : phone_num,
+            password : pw,
+        });
+    } catch(error) {
+        console.log(error);
+    }
     res.redirect('/');
 });
 
 router.post("/login", async function(req,res){
-    var username = req.body.username;
-    var password = req.body.pw;
-    var usermode = req.body.select_usermode;
-
-    if(usermode == 'admin') {
-        let result =  await Admin.findOne({
-            where: {
-                username : username
-            }
-        });
-        auth(result);
-    }
-    else if(usermode == 'customer') {
-        let result =  await Seller.findOne({
-            where: {
-                username : username
-            }
-        });
-        auth(result);
-    }
-    else {
-        let result =  await Seller.findOne({
-            where: {
-                username : username
-            }
-        });
-        auth(result);
+        var username = req.body.username;
+        var password = req.body.pw;
+        var usermode = req.body.select_usermode;
+    try{    
+        if(usermode == 'admin') {
+            let result =  await Admin.findOne({
+                where: {
+                    username : username
+                }
+            });
+            auth(result);
+        }
+        else if(usermode == 'customer') {
+            let result =  await Seller.findOne({
+                where: {
+                    username : username
+                }
+            });
+            auth(result);
+        }
+        else {
+            let result =  await Seller.findOne({
+                where: {
+                    username : username
+                }
+            });
+            auth(result);
+        }
+    } catch(error) {
+        console.log(error);
     }
     
-
     
     // console.log(dbPassword);
     function auth (result) {
@@ -102,6 +105,7 @@ router.post("/login", async function(req,res){
             // 세션 설정
             req.session.logined = true;
             req.session.username = username;
+            req.session.usermode = usermode;
             res.redirect('/');
         } else {
             console.log("비밀번호 불일치");
@@ -124,16 +128,20 @@ router.post("/register_shop", function(req,res){
     var register_data = req.body;
     var seller_id = req.session.username
 
-    Restaurants.create({
-        register_id : register_data.register_id,
-        name : register_data.name,
-        address : register_data.adderss,
-        phone_num : register_data.phone_num,
-        introduction : register_data.introduction,
-        latitude : "111",
-        longitude : "222",
-        seller_id : seller_id
-    });
+    try{
+        Restaurants.create({
+            register_id : register_data.register_id,
+            name : register_data.name,
+            address : register_data.adderss,
+            phone_num : register_data.phone_num,
+            introduction : register_data.introduction,
+            latitude : "111",
+            longitude : "222",
+            seller_id : seller_id
+        });
+    } catch(error) {
+        console.log(error);
+    }
     res.redirect('/');
 });
 
