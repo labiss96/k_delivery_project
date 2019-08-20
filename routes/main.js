@@ -9,9 +9,9 @@ router.get("/", function(req, res){
         // Admin.findAll().then((admin) => {
         //     res.render("./main/main", {data : admin});
         // });
-        res.render("./main/main", {data : "로그인 됨."});
+        res.render("./main/main", {data : "로그인 됨.", user: req.session.username});
     } else {
-        res.render("./main/main", {data : "로그인 안됨."});
+        res.render("./main/main", {data : "로그인 안됨.", user: "none"});
     }
     
 });
