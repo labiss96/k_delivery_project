@@ -16,9 +16,7 @@ db.Customer = require('./customer')(sequelize, Sequelize);
 db.Restaurants = require('./restaurants')(sequelize, Sequelize);
 db.Menu = require('./menu')(sequelize, Sequelize);
 db.Restaurants.hasMany(db.Menu,{foreignKey:'restaurant_id'});
-// db.Seller.hasMany(db.Restaurants, {foreignKey: 'seller_id'});
-
-// db.Seller.hasMany(db.Restaurants, {foreignKey: 'seller_id'});
+db.Seller.hasMany(db.Restaurants, {foreignKey: 'seller_id'});
 
 module.exports = db;
 

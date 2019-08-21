@@ -14,12 +14,6 @@ module.exports = (sequelize, DataTypes) => {
             allowNull : false,
             unique : true,
         },
-    },{
-        timestamps: false,
     });
-    seller.associate = function (models) {
-        seller.hasMany(models.Restaurants);
-    };
-
     return seller;
 };

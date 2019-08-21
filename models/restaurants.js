@@ -37,15 +37,8 @@ module.exports = (sequelize, DataTypes) => {
         seller_id : {
             type : DataTypes.INTEGER,
             allowNull : false,
-            // references: {model: db.seller, key: 'username'}
         }
     });
 
-    restaurants.associate = function(models){
-        restaurants.belongsTo(models.Seller, {
-            foreignKey: "seller_id",
-            onDelete: 'cascade'
-        })
-    };      
     return restaurants;
 }
