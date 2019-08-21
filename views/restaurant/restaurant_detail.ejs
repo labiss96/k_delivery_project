@@ -6,5 +6,19 @@
     소개 : <%= rest_info.introduction %> <br>
     점주 : <%= rest_info.seller_id %>    
 
-<br><br>
+<br>
+<% for(let menu_log of menu_info){ %>
+    품명: <%= menu_log.food %><br>
+    가격: <%= menu_log.cost %>
+<% } %>
+<br>
+<details>
+<summary>메뉴 추가</summary>
+<form action="/restaurant/detail/<%=rest_info.id%>" method="post">
+    품명:<input type="text"  name="menu_name" value="" required='required'>
+    가격:<input type="number"  name="menu_cost" value="" required='required'>
+    <button type="submit">등록</button>
+</form>
+</details>
+<br>
 <a href="/">뒤로가기</a>
