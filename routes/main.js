@@ -98,7 +98,7 @@ router.get("/signup_seller", function(req, res){
     res.render("./main/signup_seller");
 });
 
-router.post("/signup_seller", function(req,res){
+router.post("/signup_seller", async function(req,res){
     var username = req.body.username;
     var phone_num = req.body.phone_num;
     var pw = req.body.pw;
@@ -112,6 +112,17 @@ router.post("/signup_seller", function(req,res){
     } catch(error) {
         console.log(error);
     }
+    let result =  await Seller.findOne({
+        where: {
+            username : username
+        }
+    });
+
+    req.session.logined = true;
+    req.session.username = username;
+    req.session.usermode = "seller";
+    req.session.user_id = result.dataValues.id;
+
     res.redirect('/');
 });
 
@@ -119,7 +130,7 @@ router.get("/signup_customer", function(req, res){
     res.render("./main/signup_customer");
 });
 
-router.post("/signup_customer", function(req,res){
+router.post("/signup_customer", async function(req,res){
     var username = req.body.username;
     var phone_num = req.body.phone_num;
     var pw = req.body.pw;
@@ -131,6 +142,17 @@ router.post("/signup_customer", function(req,res){
         password : pw,
         address : address
     });
+
+    let result =  await Customer.findOne({
+        where: {
+            username : username
+        }
+    });
+    req.session.logined = true;
+    req.session.username = username;
+    req.session.usermode = "customer";
+    req.session.user_id = result.dataValues.id;
+
     res.redirect('/');
 });
 
