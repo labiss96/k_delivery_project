@@ -1,0 +1,15 @@
+
+<h2><%= category %></h2>
+<br>
+<% if(rest_list == "") { %>
+    <h5>해당 카테고리에 등록된 매장이 없습니다.</h5>
+<% } else { %>
+    <% for(let rest of rest_list) { %>
+        매장이름 : <a href="/restaurant/detail/<%=rest.id%>"><%= rest.name %></a><br>
+        주소 : <%= rest.address %> <br>
+        점주 : <%= rest.seller_id %> <br>
+        <hr>
+    <% } %>
+<% } %>
+
+<a href="/">뒤로가기</a>

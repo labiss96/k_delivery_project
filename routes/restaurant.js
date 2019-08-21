@@ -37,4 +37,15 @@ router.get("/detail/:id", async function(req, res){
     res.render("./restaurant/restaurant_detail", {rest_info: rest_info});
 });
 
+//index
+router.get("/index/:category", async function(req, res){
+    var rest_category = req.params.category;
+    var rest_list = await Restaurants.findAll({
+        where: {category: rest_category}
+    });
+    
+    res.render("./restaurant/restaurant_index", {category : rest_category, rest_list : rest_list});
+    
+});
+
 module.exports = router;
