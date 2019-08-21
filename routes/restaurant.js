@@ -8,7 +8,7 @@ router.get("/register_restaurants", function(req, res){
 });
 router.post("/register_restaurants", function(req,res){
     var register_data = req.body;
-    var seller_id = req.session.username
+    var seller_id = req.session.user_id;
 
     try{
         Restaurants.create({

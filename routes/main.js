@@ -120,11 +120,13 @@ router.post("/login", async function(req,res){
         var dbPassword = result.dataValues.password;
         if(dbPassword == password){
             console.log("비밀번호 일치");
+            // console.log(result.dataValues.id);
     
             // 세션 설정
             req.session.logined = true;
             req.session.username = username;
             req.session.usermode = usermode;
+            req.session.user_id = result.dataValues.id;
             res.redirect('/');
         } else {
             console.log("비밀번호 불일치");
