@@ -110,14 +110,13 @@ router.post("/signup_seller", function(req,res){
         password : pw,
     }).then(function(data){
         req.session.user_id = data.dataValues.id;
+        req.session.logined = true;
+        req.session.username = username;
+        req.session.usermode = "seller";
     }).catch(function(err) {
         console.log(err);
     });
     
-    req.session.logined = true;
-    req.session.username = username;
-    req.session.usermode = "seller";
-
     res.redirect('/');
 });
 
@@ -138,13 +137,12 @@ router.post("/signup_customer", function(req,res){
         address : address
     }).then(function(data){
         req.session.user_id = data.dataValues.id;
+        req.session.logined = true;
+        req.session.username = username;
+        req.session.usermode = "customer";
     }).catch(function(err) {
         console.log(err);
     });
-
-    req.session.logined = true;
-    req.session.username = username;
-    req.session.usermode = "customer";
 
     res.redirect('/');
 });
