@@ -35,7 +35,7 @@ module.exports = (sequelize, DataTypes) => {
             allowNull : false,
         },
         seller_id : {
-            type : DataTypes.STRING(30),
+            type : DataTypes.INTEGER,
             allowNull : false,
             // references: {model: db.seller, key: 'username'}
         }
