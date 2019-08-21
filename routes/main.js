@@ -98,30 +98,25 @@ router.get("/signup_seller", function(req, res){
     res.render("./main/signup_seller");
 });
 
-router.post("/signup_seller", async function(req,res){
+router.post("/signup_seller", function(req,res){
     var username = req.body.username;
     var phone_num = req.body.phone_num;
     var pw = req.body.pw;
 
-    try {
-        Seller.create({
-            username : username,
-            phone_num : phone_num,
-            password : pw,
-        });
-    } catch(error) {
-        console.log(error);
-    }
-    let result =  await Seller.findOne({
-        where: {
-            username : username
-        }
-    });
 
+    Seller.create({
+        username : username,
+        phone_num : phone_num,
+        password : pw,
+    }).then(function(data){
+        req.session.user_id = data.dataValues.id;
+    }).catch(function(err) {
+        console.log(err);
+    });
+    
     req.session.logined = true;
     req.session.username = username;
     req.session.usermode = "seller";
-    req.session.user_id = result.dataValues.id;
 
     res.redirect('/');
 });
@@ -130,7 +125,7 @@ router.get("/signup_customer", function(req, res){
     res.render("./main/signup_customer");
 });
 
-router.post("/signup_customer", async function(req,res){
+router.post("/signup_customer", function(req,res){
     var username = req.body.username;
     var phone_num = req.body.phone_num;
     var pw = req.body.pw;
@@ -141,17 +136,15 @@ router.post("/signup_customer", async function(req,res){
         phone_num : phone_num,
         password : pw,
         address : address
+    }).then(function(data){
+        req.session.user_id = data.dataValues.id;
+    }).catch(function(err) {
+        console.log(err);
     });
 
-    let result =  await Customer.findOne({
-        where: {
-            username : username
-        }
-    });
     req.session.logined = true;
     req.session.username = username;
     req.session.usermode = "customer";
-    req.session.user_id = result.dataValues.id;
 
     res.redirect('/');
 });
