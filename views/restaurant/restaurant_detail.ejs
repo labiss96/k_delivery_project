@@ -8,8 +8,12 @@
 
 <br>
 <% for(let menu_log of menu_info){ %>
-    품명: <%= menu_log.food %><br>
-    가격: <%= menu_log.cost %>
+    <form action="/restaurant/cart/<%=rest_info.id%>" method="post">
+    품명: <input type="text"  name="menu_name" value="<%= menu_log.food %>" required='required'><br>
+    가격: <input type="number"  name="menu_cost" value="<%= menu_log.cost %>" required='required'><br>
+    <button type="submit">담기</button>
+    </form>
+    <hr>
 <% } %>
 <br>
 <details>
