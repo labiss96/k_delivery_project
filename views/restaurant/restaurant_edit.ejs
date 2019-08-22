@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <% include ../partials/head %>
+</head>
+<body>
+    <div class="container">
+        <h1>Restaurant edit page</h1>
+        <form class="contact-form" action="/restaurant/detail/edit/<%= rest_info.id %>" method="post">
+            <div>
+                <label for="register_id">사업자등록번호</label>
+                <input type="text" id="register_id" name="register_id" value="<%=rest_info.register_id%>">
+            </div>
+            <div>
+                <label for="name">매장이름</label>
+                <input type="text" id="name" name="name" value="<%=rest_info.name%>">
+            </div>
+            <div>
+                <select name="category">
+                    <option value="">Category</option>
+                    <option value="koreanFood">한식</option>
+                    <option value="japaneseFood">일식</option>
+                    <option value="chineseFood">중식</option>
+                    <option value="snack">분식</option>
+                    <option value="midnightSnack">야식</option>
+                    <option value="chicken">치킨</option>
+                    <option value="pizza">피자</option>
+                    <option value="fastFood">패스트푸드</option>
+                </select>
+            </div>
+            <div>
+                <label for="adderss">주소</label>
+                <input type="text" id="adderss" name="adderss" value="<%=rest_info.address%>">
+            </div>
+            <div>
+                <label for="phone_num">전화번호</label>
+                <input type="text" id="phone_num" name="phone_num" value="<%=rest_info.phone_num%>">
+            </div>
+            <div>
+                <label for="introduction">소개글</label>
+                <input type="text" id="introduction" name="introduction" value="<%=rest_info.introduction%>">
+            </div>
+            <div>
+                <button type="submit">Submit</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
+
+<script>
+//select box 기본값 세팅.
+$(document).ready(function(){
+    $("select option[value='<%= rest_info.category %>']").attr("selected", true);
+});
+</script>
