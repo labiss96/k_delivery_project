@@ -2,5 +2,15 @@
 
 <h2><%= usermode %></h2>
 
-Username : <%= user_info.username %> <br>
-Phone Number : <%= user_info.phone_num %> <br>
+<% if(usermode == 'customer') { %>
+    Username : <%= user_info.username %> <br>
+    Phone Number : <%= user_info.phone_num %> <br>
+    Address : <%= user_info.address %> <br>
+<% } else { %>
+    Username : <%= user_info.username %> <br>
+    Phone Number : <%= user_info.phone_num %> <br>
+<% } %>
+
+<br>
+<a href="/mypage/edit/<%= user_info.username %>">수정하기</a>
+<a href="/">뒤로가기</a>

@@ -6,7 +6,8 @@
     소개 : <%= rest_info.introduction %> <br>
     점주 : <%= rest_info.seller_id %>    
 
-<br>
+<br><hr>
+<h2>메뉴</h2>
 <% for(let menu_log of menu_info){ %>
     <form action="/restaurant/cart/<%=rest_info.id%>" method="post">
     품명: <input type="text"  name="menu_name" value="<%= menu_log.food %>" required='required'><br>
