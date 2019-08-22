@@ -6,10 +6,12 @@
     소개 : <%= rest_info.introduction %> <br>
     점주 : <%= rest_info.seller_id %>    
 
-<br>
+<br><hr>
+<h2>메뉴</h2>
 <% for(let menu_log of menu_info){ %>
     품명: <%= menu_log.food %><br>
-    가격: <%= menu_log.cost %>
+    가격: <%= menu_log.cost %><br>
+    <hr>
 <% } %>
 <br>
 <details>
