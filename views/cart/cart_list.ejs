@@ -1,0 +1,10 @@
+<h1>장바구니 내역</h1>
+<% for(let menu_log of menu_info){ %>
+    <%= menu_log.food %><br>
+    <%= menu_log.cost %>
+    <hr>
+<% } %>
+<br>
+총금액: <%= total_price %>
+<br>
+<a href="/cart/pay/<%= total_price %>">결제하기</a>
