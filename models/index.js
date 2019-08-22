@@ -15,11 +15,12 @@ db.Seller = require('./seller')(sequelize, Sequelize);
 db.Customer = require('./customer')(sequelize, Sequelize);
 db.Restaurants = require('./restaurants')(sequelize, Sequelize);
 db.Menu = require('./menu')(sequelize, Sequelize);
+db.Cart = require('./cart')(sequelize, Sequelize);
 
 //관계설정
 db.Restaurants.hasMany(db.Menu,{foreignKey:'restaurant_id'});
 db.Seller.hasMany(db.Restaurants, {foreignKey: 'seller_id'});
-
+db.Cart.hasMany(db.Menu,{foreignKey: 'cart_id'})
 module.exports = db;
 
 
