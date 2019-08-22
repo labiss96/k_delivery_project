@@ -1,7 +1,7 @@
 var express = require("express");
 var router = express.Router();
 var {Restaurants} = require('../models');
-
+var {Cart} = require('../models');
 //create
 router.get("/register_restaurants", function(req, res){
     res.render("./restaurant/register_restaurants");
@@ -83,7 +83,8 @@ router.post("/detail/:id", function(req, res){
     Menu.create({
         restaurant_id : restaurant_pk,
         cost : menu_data.menu_cost,
-        food : menu_data.menu_name
+        food : menu_data.menu_name,
+        cart_id : null
 
     });
     res.redirect('/restaurant/detail/'+restaurant_pk);
@@ -111,5 +112,19 @@ router.get("/index/:category", async function(req, res){
     res.render("./restaurant/restaurant_index", {category : rest_category, rest_list : rest_list});
     
 });
-
+router.post("/cart/:id", async function(req, res){
+    var rest_id=req.params.id;
+    var cart_info=req.body;
+    var cart = await Cart.create({
+        food : cart_info.menu_name,
+        cost : cart_info.menu_cost
+    })
+   
+    await Menu.update({
+        cart_id : cart.dataValues.id    
+    },{
+       where: {food : cart_info.menu_name} 
+    });
+    res.redirect('/restaurant/detail/'+rest_id);
+});
 module.exports = router;
