@@ -63,7 +63,6 @@ function auth (result) {
         console.log("비밀번호 일치");
         // 세션 설정
         var session = req.session;
-
         session.login = true;
         session.username = username;
         session.usermode = usermode;
@@ -117,7 +116,7 @@ router.post("/signup_seller", function(req,res){
         session.login = true;
         session.username = username;
         session.usermode = "seller";
-        req.session.save(function() {
+        req.session.save(function() { //save 콜백함수를 사용하여, 세션정보를 안전하게 저장 후 리다이렉트 함.
             res.redirect('/');
         });
     }).catch(function(err) {
