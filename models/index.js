@@ -21,6 +21,7 @@ db.Cart = require('./cart')(sequelize, Sequelize);
 db.Restaurants.hasMany(db.Menu,{foreignKey:'restaurant_id'});
 db.Seller.hasMany(db.Restaurants, {foreignKey: 'seller_id'});
 db.Cart.hasMany(db.Menu,{foreignKey: 'cart_id'})
+db.Customer.hasOne(db.Cart,{foreignKey:'user_id'})
 module.exports = db;
 
 

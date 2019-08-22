@@ -30,6 +30,7 @@ app.use(session({
 app.use('/', require('./routes/main'));
 app.use('/restaurant', require('./routes/restaurant'));
 app.use('/mypage', require('./routes/accounts'));
+app.use('/cart', require('./routes/cart'));
 
 // Port setting
 app.listen(3000, function(){ //3000번 포트를 사용합니다.
