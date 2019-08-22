@@ -11,7 +11,7 @@
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
                 <li><a href="/">Home</a></li>
-                <% if (!session.logined) {%>
+                <% if (!session.login) {%>
                 <li><a href="/login">Login</a></li>
                 <% } else { %>
                 <li>
@@ -20,7 +20,7 @@
                     </form>
                 </li>
                 <li>
-                    <a href="/mypage/<%= session.username %>">Mypage</a>
+                    <a href="/mypage/<%= session.username %>">Mypage(<%= session.username %>)</a>
                 </li>
                 <% } %>
             </ul>

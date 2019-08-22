@@ -19,7 +19,7 @@ app.use(session({
   key: 'sid', //세션 키 값
   secret: 'secret', //세션 시크릿키, 쿠키값 변조 막기위해 암호화
   resave : false, // 세션을 항상 저장할 지 여부.
-  saveUninitialized: true, //세션이 저장되기 전에 비초기화상태로 만들어 저장
+  saveUninitialize:true, //세션이 저장되기 전에 비초기화상태로 만들어 저장
   cookie: { // 쿠키 설정
     maxAge: 24000 * 60 * 60 //쿠키 유효시간은 24시간.
   }

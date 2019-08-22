@@ -7,15 +7,18 @@ var {Customer} = require('../models');
 
 // Main
 router.get("/", async function(req, res){
+
+    // if(!req.session.login){
+    //     req.session.destroy(); //세션 제거
+    //     res.clearCookie('sid'); // 세션을 설정한 미들웨어에서 추가된 쿠키정보 삭제
+    // }
     var shop_list = await Restaurants.findAll();
     let session = req.session;
-    if(req.session.logined) {
-        res.render("./main/main", {session : session, data : "로그인 됨.", shop_list : shop_list, user : req.session.username});
-    } else {
-        res.render("./main/main", {session : session, data : "로그인 안됨.", shop_list : shop_list, user : "none"});
-    }
+    console.log(session.login);
+    console.log(session.username);
+    res.render("./main/main", {session : session, shop_list : shop_list});
 });
-
+    
 router.get("/login", function(req, res){
     res.render("./main/login", {err_flag: false, error: ""});
 });
@@ -58,13 +61,13 @@ function auth (result) {
     var dbPassword = result.dataValues.password;
     if(dbPassword == password){
         console.log("비밀번호 일치");
-        // console.log(result.dataValues.id);
-
         // 세션 설정
-        req.session.logined = true;
-        req.session.username = username;
-        req.session.usermode = usermode;
-        req.session.user_id = result.dataValues.id;
+        var session = req.session;
+        session.login = true;
+        session.username = username;
+        session.usermode = usermode;
+        session.user_id = result.dataValues.id;
+
         res.redirect('/');
     } else {
         console.log("비밀번호 불일치");
@@ -102,22 +105,23 @@ router.post("/signup_seller", function(req,res){
     var username = req.body.username;
     var phone_num = req.body.phone_num;
     var pw = req.body.pw;
-
+    var session = req.session
 
     Seller.create({
         username : username,
         phone_num : phone_num,
         password : pw,
     }).then(function(data){
-        req.session.user_id = data.dataValues.id;
-        req.session.logined = true;
-        req.session.username = username;
-        req.session.usermode = "seller";
+        session.user_id = data.dataValues.id;
+        session.login = true;
+        session.username = username;
+        session.usermode = "seller";
+        req.session.save(function() { //save 콜백함수를 사용하여, 세션정보를 안전하게 저장 후 리다이렉트 함.
+            res.redirect('/');
+        });
     }).catch(function(err) {
         console.log(err);
     });
-    
-    res.redirect('/');
 });
 
 router.get("/signup_customer", function(req, res){
@@ -129,6 +133,7 @@ router.post("/signup_customer", function(req,res){
     var phone_num = req.body.phone_num;
     var pw = req.body.pw;
     var address = req.body.address;
+    var session = req.session
 
     Customer.create({
         username : username,
@@ -136,21 +141,22 @@ router.post("/signup_customer", function(req,res){
         password : pw,
         address : address
     }).then(function(data){
-        req.session.user_id = data.dataValues.id;
-        req.session.logined = true;
-        req.session.username = username;
-        req.session.usermode = "customer";
+        session.user_id = data.dataValues.id;
+        session.login = true;
+        session.username = username;
+        session.usermode = "customer";
+        req.session.save(function() {
+            res.redirect('/');
+        });
     }).catch(function(err) {
         console.log(err);
     });
-
-    res.redirect('/');
+    
 });
 
 router.post("/logout",  function(req,res){
    req.session.destroy(); //세션 제거
-   res.clearCookie('sid'); // 세션을 설정한 미들웨어에서 추가된 쿠키정보 삭제.
+   res.clearCookie('sid'); // 세션을 설정한 미들웨어에서 추가된 쿠키정보 삭제.\
    res.redirect('/');
 });
-
 module.exports = router;

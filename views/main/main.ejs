@@ -8,9 +8,6 @@
 
     <div class="container">
         <h1>Main page</h1>
-        <br>
-        <%= data %> <br>
-        현재 유저 : <%= user %> <br>
         
         <% if (session.usermode == 'seller') { %>
         <a href="/restaurant/register_restaurants">가게등록</a>
@@ -20,8 +17,8 @@
         
         <h2>카테고리</h2>
         <a href="/restaurant/index/koreanFood">한식</a>
-        <a href="/restaurant/index/japenFood">일식</a>
-        <a href="/restaurant/index/chinaFood">중식</a>
+        <a href="/restaurant/index/japaneseFood">일식</a>
+        <a href="/restaurant/index/chineseFood">중식</a>
         <a href="/restaurant/index/snack">분식</a>
         <a href="/restaurant/index/midnightSnack">야식</a>
         <a href="/restaurant/index/chicken">치킨</a>

@@ -5,15 +5,15 @@
 </head>
 <body>
     <div class="container">
-        <h1>가게 등록페이지</h1>
-        <form class="contact-form" action="/restaurant/register_restaurants" method="post">
+        <h1>Restaurant edit page</h1>
+        <form class="contact-form" action="/restaurant/detail/edit/<%= rest_info.id %>" method="post">
             <div>
                 <label for="register_id">사업자등록번호</label>
-                <input type="text" id="register_id" name="register_id" value="">
+                <input type="text" id="register_id" name="register_id" value="<%=rest_info.register_id%>">
             </div>
             <div>
                 <label for="name">매장이름</label>
-                <input type="text" id="name" name="name" value="">
+                <input type="text" id="name" name="name" value="<%=rest_info.name%>">
             </div>
             <div>
                 <select name="category">
@@ -30,15 +30,15 @@
             </div>
             <div>
                 <label for="adderss">주소</label>
-                <input type="text" id="adderss" name="adderss" value="">
+                <input type="text" id="adderss" name="adderss" value="<%=rest_info.address%>">
             </div>
             <div>
                 <label for="phone_num">전화번호</label>
-                <input type="text" id="phone_num" name="phone_num" value="">
+                <input type="text" id="phone_num" name="phone_num" value="<%=rest_info.phone_num%>">
             </div>
             <div>
                 <label for="introduction">소개글</label>
-                <input type="text" id="introduction" name="introduction" value="">
+                <input type="text" id="introduction" name="introduction" value="<%=rest_info.introduction%>">
             </div>
             <div>
                 <button type="submit">Submit</button>
@@ -47,3 +47,10 @@
     </div>
 </body>
 </html>
+
+<script>
+//select box 기본값 세팅.
+$(document).ready(function(){
+    $("select option[value='<%= rest_info.category %>']").attr("selected", true);
+});
+</script>

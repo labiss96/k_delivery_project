@@ -31,7 +31,7 @@ module.exports = (sequelize, DataTypes) => {
             allowNull : false,
         },
         category : {
-            type: DataTypes.ENUM('koreanFood','chinaFood','japenFood','snack','chicken','pizza','midnightSnack','fastFood'),
+            type: DataTypes.ENUM('koreanFood','chineseFood','japaneseFood','snack','chicken','pizza','midnightSnack','fastFood'),
             allowNull : false,
         },
         seller_id : {

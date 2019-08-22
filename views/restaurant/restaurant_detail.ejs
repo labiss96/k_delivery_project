@@ -1,3 +1,4 @@
+
 <h1>매장 상세페이지</h1>
 <br>
     매장이름 : <%= rest_info.name %> <br>
@@ -35,4 +36,7 @@
 <a href="/cart/cart_list">장바구니 보기</a>
 <% } %>
 <br>
+<a href="/restaurant/detail/edit/<%=rest_info.id%>">수정하기</a>
+<form action="/restaurant/detail/delete/<%=rest_info.id%>" method="POST"><button type="submit">매장삭제</button></form>
+
 <a href="/">뒤로가기</a>
