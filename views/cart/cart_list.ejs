@@ -1,7 +1,10 @@
 <h1>장바구니 내역</h1>
 <% for(let menu_log of menu_info){ %>
     <%= menu_log.food %><br>
-    <%= menu_log.cost %>
+    <%= menu_log.cost %><br>
+    <form action="/cart/delete/<%= menu_log.id %>" method="post">
+        <button type="submit">제거</button>
+    </form>
     <hr>
 <% } %>
 <br>

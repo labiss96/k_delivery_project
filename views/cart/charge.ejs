@@ -36,8 +36,8 @@
                 // location.href="{% url 'calculate' profile_id=profile cash=money %}";
             }
             else {
-                var msg = '결제에 실패하였습니다. 에러내용 : ' + rsp.error_msg
-                // location.href="{% url 'profile' user.username  %}";
+                var msg = '결제에 실패하였습니다. 에러내용 : ' + rsp.error_msg;
+                location.href="/cart/cart_list";
             }
             alert(msg);
         });
