@@ -2,6 +2,7 @@ var express = require("express");
 var router = express.Router();
 var {Cart} = require('../models');
 var {Menu} = require('../models');
+var {Payment_log} = require('../models');
 
 router.get("/cart_list",async function(req, res){
     var menu_info= await Cart.findAll({
@@ -23,6 +24,24 @@ router.post("/delete/:id",async function(req,res){
     await Cart.destroy({
         where:{id:cart_id}
     });
-    res.redirect("/cart/cart_list")
+    res.redirect("/cart/cart_list");
+});
+router.get("/payment",async function(req,res){
+    var cart_infos=await Cart.findAll({
+        where:{user_id:req.session.user_id}
+    });
+    var payment_id;
+    for(let cart_info of cart_infos){
+        payment_id=await Payment_log.create({
+            food:cart_info.food,
+            cost:cart_info.cost,
+            customer_id:cart_info.user_id,
+            seller_id:cart_info.restaurant_id   
+        });
+    }
+    var payments=await Payment_log.findAll({
+        where:{id:payment_id.dataValues.id}
+    });
+    res.render("./payment/payment_log",{payments:payments});
 });
 module.exports = router;

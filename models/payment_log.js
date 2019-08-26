@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-    return sequelize.define('Cart', {
+    return sequelize.define('Payment_log', {
         food: {
             type : DataTypes.STRING(30),
             allowNull : false,
@@ -9,14 +9,15 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.INTEGER,
             allowNull : false,
         },
-        user_id : {
-            type: DataTypes.INTEGER,
-            allowNull : false,
-        },
-        restaurant_id : {
+        customer_id : {
             type : DataTypes.INTEGER,
-            allowNull : false,
+            allowNull : true,
         },
+        seller_id : {
+            type : DataTypes.INTEGER,
+            allowNull : true,
+            
+        }
      
     },
         
