@@ -1,0 +1,8 @@
+<h1>구매내역</h1>
+<% for(let payment of payments ){ %>
+    품목:<%= payment.food %><br>
+    가격:<%= payment.cost %><br>
+    판매자:<%= payment.seller_id %><br>
+    구매자:<%= payment.restaurant_id %><br>
+    <hr>
+<% } %>

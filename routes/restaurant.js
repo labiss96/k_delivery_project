@@ -117,8 +117,9 @@ router.post("/cart/:id", async function(req, res){
     var cart = await Cart.create({
         food : cart_info.menu_name,
         cost : cart_info.menu_cost,
-        user_id : req.session.user_id 
-    })
+        user_id : req.session.user_id,
+        restaurant_id:rest_id
+    });
    
     await Menu.update({
         cart_id : cart.dataValues.id    
