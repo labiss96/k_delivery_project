@@ -17,6 +17,14 @@
     <hr>
 <% } %>
 <br>
+<h2>리뷰</h2>
+<!-- <% for(var review in reviews_info) {%>
+    작성자 : <%= review.writer %>
+    평점 : <%= review.rating %>
+    코멘트 : <%= review.comment %>
+<hr>
+<% } %> -->
+<br>
 <details>
 <summary>메뉴 추가</summary>
 <form action="/restaurant/detail/<%=rest_info.id%>" method="post">
@@ -25,7 +33,20 @@
     <button type="submit">등록</button>
 </form>
 </details>
-<br>
+
+<hr>
+<!-- 주문 구현이 안되있으므로 일단 여기다 리뷰 구현. -->
+<details>
+    <summary>리뷰 작성</summary>
+    <form action="/restaurant/detail/<%=rest_info.id%>/create_review" method="post">
+        작성자: <input type="text"  name="review_writer" value="" required='required'>
+        평점 : <input type="number"  name="review_rating" value="" required='required'>
+        내용: <input type="text"  name="review_comment" value="" required='required'>
+        <button type="submit">등록</button>
+    </form>
+</details>
+<hr>
+
 <a href="/restaurant/detail/edit/<%=rest_info.id%>">수정하기</a>
 <form action="/restaurant/detail/delete/<%=rest_info.id%>" method="POST"><button type="submit">매장삭제</button></form>
 <a href="/">뒤로가기</a>
