@@ -7,7 +7,8 @@
     소개 : <%= rest_info.introduction %> <br>
     점주 : <%= rest_info.seller_id %>    
 
-<br>
+<br><hr>
+<h2>메뉴</h2>
 <% for(let menu_log of menu_info){ %>
     <form action="/restaurant/cart/<%=rest_info.id%>" method="post">
     품명: <input type="text"  name="menu_name" value="<%= menu_log.food %>" required='required'><br>
@@ -18,33 +19,31 @@
     </form>
     <hr>
 <% } %>
-<br>
-
-<h2>리뷰</h2>
-<!-- <% for(var review in reviews_info) {%>
-    작성자 : <%= review.writer %>
-    평점 : <%= review.rating %>
-    코멘트 : <%= review.comment %>
-<hr>
-<% } %> -->
-<br>
 
 <% if (session.usermode == 'seller') { %>
+    <details>
+    <summary>메뉴 추가</summary>
+    <form action="/restaurant/detail/<%=rest_info.id%>" method="post">
+        품명:<input type="text"  name="menu_name" value="" required='required'>
+        가격:<input type="number"  name="menu_cost" value="" required='required'>
+        
+        <button type="submit">등록</button>
+        
+    </form>
+    </details>
+    <% } %>
+    <hr>
+    <br>
 
-<details>
-<summary>메뉴 추가</summary>
-<form action="/restaurant/detail/<%=rest_info.id%>" method="post">
-    품명:<input type="text"  name="menu_name" value="" required='required'>
-    가격:<input type="number"  name="menu_cost" value="" required='required'>
-    
-    <button type="submit">등록</button>
-    
-</form>
-</details>
-<% } %>
 
+<h2>리뷰</h2>
+<% reviews_info.forEach(function(review){ %>
+    작성자 : <%= review.writer %> <br>
+    평점 : <%= review.rating %> <br>
+    내용 : <%= review.comment %>
+    <hr>
+<% }) %>
 
-<hr>
 <!-- 주문 구현이 안되있으므로 일단 여기다 리뷰 구현. -->
 <details>
     <summary>리뷰 작성</summary>
