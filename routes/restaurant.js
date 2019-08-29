@@ -3,6 +3,7 @@ var router = express.Router();
 var {Restaurants} = require('../models');
 var {Cart} = require('../models');
 var {Menu} = require('../models');
+var {Review} = require('../models');
 
 //create
 router.get("/register_restaurants", function(req, res){
@@ -34,20 +35,26 @@ router.post("/register_restaurants", function(req,res){
 //read
 router.get("/detail/:id", async function(req, res){
     var rest_id = req.params.id;
-    var rest_info = await Restaurants.findOne({
+    var rest_info, reviews_info;
+    await Restaurants.findOne({
         where: {id:rest_id}
+    }).then(function (info){
+        rest_info = info;
+        reviews_info = info.getReviews();
+        // reviews_info = info.getReviews({through : { where : info.id}});
+    }).catch(function(err){
+        console.log(err);
     });
+    
     var menu_info= await Menu.findAll({
         where:{restaurant_id : rest_id}
     });
     var session=req.session;
-    res.render("./restaurant/restaurant_detail", {rest_info: rest_info, menu_info: menu_info,session:session});
+    res.render("./restaurant/restaurant_detail", {rest_info: rest_info, menu_info: menu_info, reviews_info:reviews_info, session:session});
 });
 
+
 router.post("/detail/:id", async function(req, res){
-
-
-
     var restaurant_pk= req.params.id;
     var menu_data=req.body;
     await Menu.create({
@@ -129,5 +136,26 @@ router.post("/cart/:id", async function(req, res){
     res.redirect('/restaurant/detail/'+rest_id);
 });
 
+//review create
+router.post("/detail/:id/create_review", async function(req, res){
+    var restaurant_id= req.params.id;
+    var review_data = req.body;
+    await Review.create({
+        rating : review_data.review_rating,
+        comment : review_data.review_comment,
+        writer : review_data.review_writer
+    }).then(async function(review_info) {
+        await Restaurants.findOne({
+            where: {id:restaurant_id}
+        }).then(function(rest){
+            console.log(review_info);
+            rest.addReview(review_info)
+        });
+    }).catch(function(err){
+        console.log(err);
+    });
+
+    res.redirect('/restaurant/detail/'+restaurant_id);
+});
 
 module.exports = router;
