@@ -35,21 +35,32 @@ router.post("/register_restaurants", function(req,res){
 //read
 router.get("/detail/:id", async function(req, res){
     var rest_id = req.params.id;
-    var rest_info, reviews_info;
-    await Restaurants.findOne({
+    var reviews_info = [];
+    var session=req.session;
+
+    var rest_info = await Restaurants.findOne({
         where: {id:rest_id}
-    }).then(function (info){
-        rest_info = info;
-        reviews_info = info.getReviews();
-        // reviews_info = info.getReviews({through : { where : info.id}});
     }).catch(function(err){
         console.log(err);
     });
-    
+
     var menu_info= await Menu.findAll({
         where:{restaurant_id : rest_id}
     });
-    var session=req.session;
+    
+
+    //해당 음식점의 리뷰를 가져옴.
+    var review_info = await rest_info.getReviews();
+
+    for(var i = 0; i < review_info.length; i++) {
+        var info = {
+            comment : review_info[i].dataValues.comment,
+            writer : review_info[i].dataValues.writer,
+            rating : review_info[i].dataValues.rating
+        };
+        reviews_info.push(info);
+    }
+
     res.render("./restaurant/restaurant_detail", {rest_info: rest_info, menu_info: menu_info, reviews_info:reviews_info, session:session});
 });
 
