@@ -49,16 +49,15 @@ router.get("/detail/:id", async function(req, res){
     var menu_info= await Menu.findAll({
         where:{restaurant_id : rest_id}
     });
-    
-    
-    res.render("./restaurant/restaurant_detail", {rest_info: rest_info, menu_info: menu_info, reviews_info:reviews_info});
+    var session=req.session;
+    res.render("./restaurant/restaurant_detail", {rest_info: rest_info, menu_info: menu_info, reviews_info:reviews_info, session:session});
 });
 
-//menu create
-router.post("/detail/:id", function(req, res){
+
+router.post("/detail/:id", async function(req, res){
     var restaurant_pk= req.params.id;
     var menu_data=req.body;
-    Menu.create({
+    await Menu.create({
         restaurant_id : restaurant_pk,
         cost : menu_data.menu_cost,
         food : menu_data.menu_name,
@@ -124,8 +123,10 @@ router.post("/cart/:id", async function(req, res){
     var cart_info=req.body;
     var cart = await Cart.create({
         food : cart_info.menu_name,
-        cost : cart_info.menu_cost
-    })
+        cost : cart_info.menu_cost,
+        user_id : req.session.user_id,
+        restaurant_id:rest_id
+    });
    
     await Menu.update({
         cart_id : cart.dataValues.id    
@@ -156,6 +157,5 @@ router.post("/detail/:id/create_review", async function(req, res){
 
     res.redirect('/restaurant/detail/'+restaurant_id);
 });
-
 
 module.exports = router;
